@@ -1,5 +1,7 @@
 ### EX7 Implementation of Link Analysis using HITS Algorithm
-### DATE: 
+### DATE: 22/10/2025
+### NAME: Yamuna M
+### REGISTER NUMBER:212223230248
 ### AIM: To implement Link Analysis using HITS Algorithm in Python.
 ### Description:
 <div align = "justify">
@@ -43,17 +45,18 @@ def hits_algorithm(adjacency_matrix, max_iterations=100, tol=1.0e-6):
     hub_scores = np.ones(num_nodes)
     
     for i in range(max_iterations):
-        # Authority update
-
-             /*WRITE YOUR CODE HERE
+        # Authority update: a = A^T * h
+        new_authority_scores = adjacency_matrix.T @ hub_scores
+        # Hub update: h = A * a
+        new_hub_scores = adjacency_matrix @ new_authority_scores
         
-        # Hub update
-
-             /*WRITE YOUR CODE HERE
+        # Normalize scores
+        new_authority_scores /= np.linalg.norm(new_authority_scores, 2)
+        new_hub_scores /= np.linalg.norm(new_hub_scores, 2)
         
         # Check convergence
-
-             /*WRITE YOUR CODE HERE
+        authority_diff = np.linalg.norm(new_authority_scores - authority_scores, 1)
+        hub_diff = np.linalg.norm(new_hub_scores - hub_scores, 1)
         
         if authority_diff < tol and hub_diff < tol:
             break
@@ -63,8 +66,7 @@ def hits_algorithm(adjacency_matrix, max_iterations=100, tol=1.0e-6):
     
     return authority_scores, hub_scores
 
-# Example adjacency matrix (replace this with your own data)
-# For simplicity, using a random adjacency matrix
+# Example adjacency matrix
 adj_matrix = np.array([
     [0, 1, 1],
     [1, 0, 0],
@@ -76,8 +78,7 @@ authority, hub = hits_algorithm(adj_matrix)
 for i in range(len(authority)):
     print(f"Node {i}: Authority Score = {authority[i]:.4f}, Hub Score = {hub[i]:.4f}")
 
-# bar chart of authority vs hub scores
-
+# Bar chart of authority vs hub scores
 nodes = np.arange(len(authority))
 bar_width = 0.35
 plt.figure(figsize=(8, 6))
@@ -90,8 +91,14 @@ plt.xticks(nodes, [f'Node {i}' for i in nodes])
 plt.legend()
 plt.tight_layout()
 plt.show()
+
+
 ```
 
 ### Output:
 
+<img width="832" height="650" alt="image" src="https://github.com/user-attachments/assets/ba649f03-d72d-4bca-8f48-17cb8cb3a9a6" />
+
+
 ### Result:
+Thus Link Analysis using HITS Algorithm in Python is successfully implemented.
